@@ -209,15 +209,6 @@ docker compose down
 docker compose down -v
 ```
 
-## 适合放到 GitHub 首页的说明点
-
-如果你准备把这个仓库直接公开到 GitHub，建议保留这几个关键信息：
-
-- 这是可直接运行的部署包，而不是只放源码
-- 两个前端 `dist` 已经提交，适合演示
-- 启动命令只有 3 步：复制 `.env`、填写配置、`docker compose up -d --build`
-- 默认访问入口是 `/`、`/admin`、`/swagger-ui.html`
-
 ## 更多说明
 
 各子项目的详细开发说明见：
