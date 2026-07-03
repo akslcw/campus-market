@@ -41,7 +41,7 @@ campus_deploy/
 ### 1. 克隆仓库
 
 ```powershell
-git clone <你的 GitHub 仓库地址>
+git clone <https://github.com/akslcw/campus-market>
 cd campus_deploy
 ```
 
