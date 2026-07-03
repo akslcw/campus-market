@@ -1,0 +1,132 @@
+@use "element-plus/theme-chalk/src/dark/css-vars.scss" as *;
+
+/* 夜间模式 - 暗色调 */
+html.dark {
+  $border-style: #303030;
+  $color-white: #fff;
+  $dark-card-bg: #1e1e28;
+  $dark-border: #333;
+
+  --pure-border-color: rgb(253 253 253 / 12%);
+  --pure-switch-off-color: #ffffff3f;
+  --el-bg-color: #1a1a2e;
+
+  .app-main,
+  .app-main-nofixed-header {
+    background: #12121a !important;
+  }
+
+  /* 所有白色卡片 → 深色 */
+  .page-top,
+  .table-card,
+  .panel {
+    background: $dark-card-bg !important;
+    border-color: $dark-border !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,.3) !important;
+  }
+
+  .page-title,
+  .panel-title,
+  .section-title,
+  .action-name,
+  .feed-title,
+  .about-title,
+  .drawer-title,
+  .reject-name,
+  .reject-label {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .page-desc,
+  .panel-extra,
+  .section-desc,
+  .action-desc,
+  .feed-meta,
+  .about-version,
+  .about-desc,
+  .a-label,
+  .copyright,
+  .avatar-hint,
+  .form-tip {
+    color: rgba(255, 255, 255, 0.45) !important;
+  }
+
+  .a-value { color: rgba(255, 255, 255, 0.8) !important; }
+
+  .hero-banner {
+    background: $dark-card-bg !important;
+    border-color: $dark-border !important;
+  }
+
+  .hero-greeting { color: rgba(255, 255, 255, 0.9) !important; }
+  .hero-sub { color: rgba(255, 255, 255, 0.5) !important; }
+
+  .hero-date-box {
+    background: rgba(255, 255, 255, 0.06) !important;
+    border-color: $dark-border !important;
+  }
+
+  .hero-date-num { color: #e8836b !important; }
+  .hero-date-meta { color: rgba(255, 255, 255, 0.6) !important; }
+
+  .feed-item { border-bottom-color: $dark-border !important; }
+  .feed-item:hover { background: rgba(255, 255, 255, 0.04) !important; }
+
+  .action-row:hover { background: rgba(255, 255, 255, 0.05) !important; }
+
+  .reject-card { background: rgba(255, 255, 255, 0.04) !important; border-color: $dark-border !important; }
+  .drawer-actions { border-top-color: $dark-border !important; }
+  .setting-avatar { border-color: $dark-border !important; }
+
+  .about-item { border-bottom: 1px solid $dark-border; }
+
+  .right-panel-items {
+    .el-divider__text { --el-bg-color: var(--el-bg-color); }
+    .el-divider--horizontal { border-top: none; }
+  }
+
+  .el-card { --el-card-bg-color: var(--el-bg-color); }
+
+  .el-backtop {
+    --el-backtop-bg-color: rgb(72 72 78);
+    --el-backtop-hover-bg-color: var(--el-color-primary);
+    transition: background-color 0.25s cubic-bezier(0.7, 0.3, 0.1, 1);
+  }
+
+  .el-dropdown-menu__item:not(.is-disabled):hover { background: transparent; }
+
+  .el-icon {
+    &.el-dialog__close, &.el-drawer__close, &.el-message-box__close, &.el-notification__closeBtn {
+      &:hover {
+        color: rgb(255 255 255 / 85%) !important;
+        background-color: rgb(255 255 255 / 12%);
+        .pure-dialog-svg { color: rgb(255 255 255 / 85%) !important; }
+      }
+    }
+  }
+
+  .pure-message {
+    background-color: rgb(36 37 37) !important;
+    background-image: initial !important;
+    box-shadow: rgb(13 13 13 / 12%) 0 3px 6px -4px, rgb(13 13 13 / 8%) 0 6px 16px 0, rgb(13 13 13 / 5%) 0 9px 28px 8px !important;
+    & .el-message__content { color: $color-white !important; pointer-events: all !important; background-image: initial !important; }
+    & .el-message__closeBtn { &:hover { color: rgb(255 255 255 / 85%); background-color: rgb(255 255 255 / 12%); } }
+  }
+
+  .pure-search-dialog {
+    .el-dialog__footer { box-shadow: 0 -1px 0 0 #555a64, 0 -3px 6px 0 rgb(69 98 155 / 12%); }
+    .search-footer .search-footer-item { color: rgb(235 235 235 / 60%); .icon { box-shadow: none; } }
+  }
+
+  .pure-segmented {
+    color: rgb(255 255 255 / 65%); background-color: #000;
+    .pure-segmented-item-selected { background-color: #1f1f1f; }
+    .pure-segmented-item-disabled { color: rgb(255 255 255 / 25%); }
+  }
+
+  .pure-scrollbar {
+    scrollbar-color: rgb(63 64 66) transparent;
+    ::-webkit-scrollbar-thumb { background-color: rgb(63 64 66); }
+    ::-webkit-scrollbar-thumb:hover { background: rgb(92 93 96); }
+  }
+}

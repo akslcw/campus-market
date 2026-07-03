@@ -1,0 +1,1 @@
+import{n as e}from"./_plugin-vue_export-helper-DYjlyILn.js";var t=()=>e.get(`/categories`);export{t};

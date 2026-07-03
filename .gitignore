@@ -1,0 +1,23 @@
+# Local secrets
+.env
+**/.env
+
+# Dependencies and build cache
+**/node_modules/
+**/target/
+**/.gradle/
+**/.mvn/wrapper/maven-wrapper.jar
+
+# Runtime data
+**/upload/
+**/logs/
+*.log
+
+# Editor and OS files
+**/.idea/
+**/.vscode/*
+!**/.vscode/extensions.json
+*.iml
+.DS_Store
+Thumbs.db
+

@@ -1,0 +1,1 @@
+{"title":"负价格商品","description":"测试价格为负数的边界情况校验","price":-100,"categoryId":1,"categoryName":"数码电子","images":["/static/x.png"]}

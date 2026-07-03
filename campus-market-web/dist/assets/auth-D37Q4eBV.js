@@ -1,0 +1,1 @@
+import{n as e}from"./_plugin-vue_export-helper-DYjlyILn.js";var t=t=>e.post(`/auth/login`,t),n=t=>e.post(`/auth/register`,t),r=()=>e.post(`/auth/logout`);export{r as n,n as r,t};

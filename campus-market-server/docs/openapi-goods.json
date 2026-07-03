@@ -1,0 +1,164 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "校园二手交易平台-商品模块",
+    "version": "2.0",
+    "description": "成员二 IF-04~IF-08"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "schemes": ["http"],
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "Authorization",
+      "description": "JWT Token"
+    }
+  },
+  "tags": [
+    { "name": "商品模块", "description": "IF-04列表/IF-05详情/IF-06发布/IF-07状态" },
+    { "name": "文件上传", "description": "IF-08图片上传" }
+  ],
+  "paths": {
+    "/api/goods": {
+      "get": {
+        "tags": ["商品模块"],
+        "summary": "IF-04 商品分页列表",
+        "description": "分页列表+分类筛选+关键词搜索+排序，游客可访问",
+        "parameters": [
+          { "name": "categoryId", "in": "query", "required": false, "type": "integer", "description": "分类ID(1数码电子2书籍教材3生活用品4服饰鞋包5运动户外6美妆护肤7食品饮料8其他)" },
+          { "name": "keyword", "in": "query", "required": false, "type": "string", "description": "关键词(匹配标题+描述)" },
+          { "name": "status", "in": "query", "required": false, "type": "string", "default": "ON_SALE", "description": "ON_SALE/SOLD/OFF_SHELF" },
+          { "name": "auditStatus", "in": "query", "required": false, "type": "string", "default": "APPROVED", "description": "APPROVED/PENDING/REJECTED" },
+          { "name": "sellerId", "in": "query", "required": false, "type": "integer", "description": "卖家ID" },
+          { "name": "page", "in": "query", "required": false, "type": "integer", "default": 1, "description": "页码，默认1" },
+          { "name": "size", "in": "query", "required": false, "type": "integer", "default": 10, "description": "每页条数，默认10" },
+          { "name": "sort", "in": "query", "required": false, "type": "string", "default": "newest", "description": "排序:newest/price_asc/price_desc" }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["商品模块"],
+        "summary": "IF-06 发布商品",
+        "description": "发布新品，内置调用IF-10 AI违规检测。违规返回2002。status默认ON_SALE，auditStatus默认PENDING",
+        "security": [ { "Authorization": [] } ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["title","description","price","categoryId","categoryName","images"],
+              "properties": {
+                "title": { "type": "string", "minLength": 2, "maxLength": 100, "description": "商品标题", "example": "二手 iPhone 14 128G" },
+                "description": { "type": "string", "description": "商品描述(建议先用IF-09优化)", "example": "出一台自用 iPhone 14 128G 黑色..." },
+                "rawDescription": { "type": "string", "description": "用户原始描述", "example": "出手机" },
+                "price": { "type": "number", "minimum": 0.01, "maximum": 99999.99, "description": "售价", "example": 3500.00 },
+                "originalPrice": { "type": "number", "description": "原价", "example": 5999.00 },
+                "categoryId": { "type": "integer", "description": "分类ID", "example": 1 },
+                "categoryName": { "type": "string", "description": "分类名称", "example": "数码电子" },
+                "images": { "type": "array", "minItems": 1, "maxItems": 5, "items": { "type": "string" }, "description": "图片URL(先调IF-08)", "example": ["/static/202606/21/abc.jpg"] },
+                "contact": { "type": "string", "description": "联系方式(不填则取资料中)", "example": "QQ:123456" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "发布成功",
+            "schema": { "$ref": "#/definitions/Result" }
+          }
+        }
+      }
+    },
+    "/api/goods/{id}": {
+      "get": {
+        "tags": ["商品模块"],
+        "summary": "IF-05 商品详情",
+        "description": "查看完整商品信息(描述/图片/卖家/联系方式)，自动+1浏览量",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "integer", "description": "商品ID" }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": { "$ref": "#/definitions/Result" }
+          }
+        }
+      }
+    },
+    "/api/goods/{id}/status": {
+      "put": {
+        "tags": ["商品模块"],
+        "summary": "IF-07 商品状态流转（选做）",
+        "description": "卖家标记已售(SOLD)或下架(OFF_SHELF)，仅本人操作，仅\"在售\"商品可流转",
+        "security": [ { "Authorization": [] } ],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "type": "integer", "description": "商品ID" },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["status"],
+              "properties": {
+                "status": { "type": "string", "enum": ["SOLD","OFF_SHELF"], "description": "SOLD已售/OFF_SHELF下架" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功",
+            "schema": { "$ref": "#/definitions/Result" }
+          }
+        }
+      }
+    },
+    "/api/upload/image": {
+      "post": {
+        "tags": ["文件上传"],
+        "summary": "IF-08 图片上传",
+        "description": "上传商品图片 multipart/form-data ≤10MB image/*，逐张上传后收集URL传入IF-06",
+        "security": [ { "Authorization": [] } ],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          { "name": "file", "in": "formData", "required": true, "type": "file", "description": "图片文件 ≤10MB" }
+        ],
+        "responses": {
+          "200": {
+            "description": "上传成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "integer", "example": 200 },
+                "msg": { "type": "string", "example": "成功" },
+                "data": { "type": "string", "example": "/static/202606/21/a1b2c3d4e5f6.jpg" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Result": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "integer", "description": "200成功,其余为错误码", "example": 200 },
+        "msg": { "type": "string", "description": "提示信息", "example": "成功" },
+        "data": { "description": "业务数据,见各接口返回示例" }
+      }
+    }
+  }
+}

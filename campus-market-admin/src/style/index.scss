@@ -1,0 +1,93 @@
+@use "theme";
+@use "transition";
+@use "element-plus";
+@use "sidebar";
+
+/* 自定义全局 CssVar */
+:root {
+  /* 左侧菜单展开、收起动画时长 */
+  --pure-transition-duration: 0.3s;
+
+  /* 常用border-color 需要时可取用 */
+  --pure-border-color: rgb(5 5 5 / 6%);
+
+  /* switch关闭状态下的color 需要时可取用 */
+  --pure-switch-off-color: #a6a6a6;
+
+  /** 主题色 */
+  --pure-theme-sub-menu-active-text: initial;
+  --pure-theme-menu-bg: none;
+  --pure-theme-menu-hover: none;
+  --pure-theme-sub-menu-bg: transparent;
+  --pure-theme-menu-text: initial;
+  --pure-theme-sidebar-logo: none;
+  --pure-theme-menu-title-hover: initial;
+  --pure-theme-menu-active-before: transparent;
+  --admin-paper: #f3f1e9;
+  --admin-sheet: #fffef9;
+  --admin-ink: #202622;
+  --admin-muted: #667068;
+  --admin-line: #cfd3cd;
+  --admin-red: #9d2f2f;
+  --admin-green: #285b52;
+}
+
+html,
+body,
+#app {
+  background: var(--admin-paper);
+  color: var(--admin-ink);
+}
+
+body {
+  background-image:
+    linear-gradient(rgb(32 38 34 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(32 38 34 / 2%) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.app-main {
+  padding: 22px 26px !important;
+  background: transparent !important;
+}
+
+.el-button,
+.el-input__wrapper,
+.el-textarea__inner,
+.el-select__wrapper,
+.el-dialog,
+.el-drawer {
+  border-radius: 4px !important;
+}
+
+.el-button--primary {
+  --el-button-bg-color: var(--admin-red);
+  --el-button-border-color: var(--admin-red);
+  --el-button-hover-bg-color: #842626;
+  --el-button-hover-border-color: #842626;
+}
+
+.el-table {
+  --el-table-header-bg-color: #ecebe4;
+  --el-table-tr-bg-color: var(--admin-sheet);
+  --el-table-row-hover-bg-color: #f7f3e8;
+  --el-table-border-color: var(--admin-line);
+  color: var(--admin-ink);
+}
+
+.el-table th.el-table__cell {
+  color: #4c554e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* 灰色模式 */
+.html-grey {
+  filter: grayscale(100%);
+}
+
+/* 色弱模式 */
+.html-weakness {
+  filter: invert(80%);
+}

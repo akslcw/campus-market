@@ -1,0 +1,1 @@
+import{n as e}from"./_plugin-vue_export-helper-DYjlyILn.js";var t=t=>e.get(`/goods`,{params:t}),n=t=>e.get(`/goods/${t}`),r=t=>e.post(`/goods`,t),i=t=>e.get(`/user/goods`,{params:t}),a=t=>e.put(`/goods/${t}/offline`);export{r as a,a as i,t as n,i as r,n as t};
